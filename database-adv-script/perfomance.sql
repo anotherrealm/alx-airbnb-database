@@ -1,19 +1,5 @@
--- ==================================================
--- Task 4: Optimized Complex Query (After Optimization)
--- ==================================================
+-- ...existing code...
 
--- Optimization strategies:
--- 1. Use explicit column lists instead of SELECT * (already done).
--- 2. Ensure indexes exist on join and filter columns.
--- 3. Use EXISTS or LIMIT if only a subset is needed.
--- 4. Use CTE for clarity if needed.
-
--- Add recommended indexes for performance (run once):
--- CREATE INDEX IF NOT EXISTS idx_booking_user_id ON Booking(user_id);
--- CREATE INDEX IF NOT EXISTS idx_booking_property_id ON Booking(property_id);
--- CREATE INDEX IF NOT EXISTS idx_payment_booking_id ON Payment(booking_id);
-
--- Optimized query with EXPLAIN ANALYZE for performance check:
 EXPLAIN ANALYZE
 SELECT 
     b.booking_id,
@@ -34,4 +20,5 @@ FROM Booking b
 JOIN "User" u ON b.user_id = u.user_id
 JOIN Property p ON b.property_id = p.property_id
 LEFT JOIN Payment pay ON b.booking_id = pay.booking_id
-ORDER BY
+WHERE b.status = 'confirmed' AND p.location = 'Nairobi'
+ORDER BY b.created_at DESC;
