@@ -15,7 +15,6 @@ GROUP BY u.user_id, u.first_name, u.last_name, u.email
 ORDER BY total_bookings DESC;
 
 -- 2. Rank properties by number of bookings using RANK()
--- Handle ties properly (same rank if same count)
 SELECT 
     p.property_id,
     p.name,
